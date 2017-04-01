@@ -5,6 +5,9 @@
 var express = require('express');
 var db = require('../db/connection.js');
 var Event = require('../models/event.js');
+
+var Battery = require('../models/battery.js');
+
 var middleware = require("../middleware/middleware.js");
 
 var router = express.Router();
@@ -13,25 +16,22 @@ var router = express.Router();
  * This mapping allows to create an Event, by providing the needed parameters
  * in the payload.
  */
-router.post('/events/new', function(req, res, next) {
+router.post('/battery/new', function(req, res, next) {
 
-    var newEvent = new Event(
+    var newBattery = new Battery(
         {
-            name: req.body.name,
-            description: req.body.description,
-            zip: req.body.zip,
-            upVote: 0,
-            downVote: 0,
+            voltage: req.body.voltage,
+            load: req.body.load,
             timeStamp: new Date
         }
     );
 
-    newEvent.save(function(error, resp){
+    newBattery.save(function(error, resp){
 
         if(error){
             return next(error);
         }else{
-            return res.send("Event created!")
+            return res.send("Battery state recorded!");
         }
     });
 });
