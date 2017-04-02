@@ -23,7 +23,7 @@ router.post('/sensor/new', function(req, res, next) {
         {
             type: req.body.type,
             reading: req.body.reading,
-            timeStamp: new Date
+            timeStamp: new Date(req.body.timeStamp)
         }
     );
 

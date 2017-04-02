@@ -3,7 +3,7 @@ body {
   font: 14px "Lato", sans-serif;
   font-weight: lighter;
   color: #000000;
-  background-image: url("../img/background.jpg");
+  background: #ffffff url("../img/background.jpg") no-repeat center;
   background-size: cover;
   transition: all 0.5s; }
 
@@ -57,5 +57,25 @@ a {
 
 .main {
   margin-left: 30rem; }
+
+.controls-menu ul {
+  list-style: none;
+  font-size: 1.5em;
+  font-weight: 900;
+  color: #ffffff; }
+
+.content {
+  background-color: #ffffff;
+  margin-top: 50px;
+  margin-left: -20px;
+  padding: 50px; }
+
+.title {
+  font-weight: 900;
+  font-size: 2em; }
+
+.sub-title {
+  font-weight: 400;
+  font-size: 1.2em; }
 
 /*# sourceMappingURL=style.css.map */
