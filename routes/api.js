@@ -7,6 +7,7 @@ var db = require('../db/connection.js');
 var Event = require('../models/event.js');
 
 var Battery = require('../models/battery.js');
+var Sensor = require('../models/sensorData.js');
 
 var middleware = require("../middleware/middleware.js");
 
@@ -16,22 +17,22 @@ var router = express.Router();
  * This mapping allows to create an battery entry, by providing the needed parameters
  * in the payload.
  */
-router.post('/battery/new', function(req, res, next) {
+router.post('/sensor/new', function(req, res, next) {
 
-    var newBattery = new Battery(
+    var newSensorData = new Sensor(
         {
-            voltage: req.body.voltage,
-            load: req.body.load,
+            type: req.body.type,
+            reading: req.body.reading,
             timeStamp: new Date
         }
     );
 
-    newBattery.save(function(error, resp){
+    newSensorData.save(function(error, resp){
 
         if(error){
             return next(error);
         }else{
-            return res.send("Battery state recorded!");
+            return res.send("Sensor Data Recorded!");
         }
     });
 });
@@ -40,7 +41,7 @@ router.post('/battery/new', function(req, res, next) {
  * This mapping allows to search for entries in the battery database
  * for any given amount of days. This amount of days is passed by parameters.
  */
-router.get('/battery/:days/', function(req, res, next) {
+router.get('/sensor/:type/:days/', function(req, res, next) {
 
     var dayInMs = 86400000;
     var currDate = new Date();
@@ -51,12 +52,12 @@ router.get('/battery/:days/', function(req, res, next) {
     startDate = new Date(startDate);
     console.log(startDate);
 
-    Battery.find({"timeStamp" :  {$gt : startDate}}, function(error, batteries){
-        if(!batteries){
+    Sensor.find({"type" : req.params.type, "timeStamp" :  {$gt : startDate}}, function(error, sensorData){
+        if(!sensorData){
             res.send({message : "No battery entries for the given date!"});
         }
-        res.send(batteries);
-    }).limit(5);
+        res.send(sensorData);
+    });
 });
 
 /**
