@@ -13,7 +13,7 @@ var middleware = require("../middleware/middleware.js");
 var router = express.Router();
 
 /**
- * This mapping allows to create an Event, by providing the needed parameters
+ * This mapping allows to create an battery entry, by providing the needed parameters
  * in the payload.
  */
 router.post('/battery/new', function(req, res, next) {
@@ -37,7 +37,8 @@ router.post('/battery/new', function(req, res, next) {
 });
 
 /**
- * This mapping allows to search for events given a zip code.
+ * This mapping allows to search for entries in the battery database
+ * for any given amount of days. This amount of days is passed by parameters.
  */
 router.get('/battery/:days/', function(req, res, next) {
 
