@@ -17,34 +17,32 @@ var body = $('body');
 
 
 
+var api_key = 'api/sensor/battery/\.005';
+$.get(api_key, function (api_res) {
+
+    var data = new Array();
+    for (i = 0; i <  api_res.length; i++){
+        console.log(api_res[i].timeStamp);
+        data.push({'date': new Date(api_res[i].timeStamp), 'value':parseInt(api_res[i].reading)});
+
+    }
+    console.log(data);
 
 
-
-
-
-MG.data_graphic({
-    title: "Downloads",
-    description: "This graphic shows a time-series of downloads.",
-    data: [{'date':new Date('2014-11-01'),'value':12},
-            {'date':new Date('2014-11-02'),'value':18},
-        {'date':new Date('2014-11-01'),'value':12},
-        {'date':new Date('2014-11-02'),'value':18},
-        {'date':new Date('2014-11-01'),'value':12},
-        {'date':new Date('2014-11-02'),'value':18},
-        {'date':new Date('2014-11-01'),'value':12},
-        {'date':new Date('2014-11-02'),'value':18},
-        {'date':new Date('2014-11-01'),'value':12},
-        {'date':new Date('2014-11-02'),'value':18},
-        {'date':new Date('2014-11-01'),'value':12},
-        {'date':new Date('2014-11-02'),'value':18},
-        {'date':new Date('2014-11-01'),'value':12},
-        {'date':new Date('2014-11-02'),'value':18}],
-    width: 600,
-    height: 250,
-    target: '.graph',
-    x_accessor: 'date',
-    y_accessor: 'value',
+    MG.data_graphic({
+        title: "",
+        description: "This graphic shows a time-series of downloads.",
+        data: data,
+        width: 800,
+        height: 550,
+        target: '.graph',
+        x_accessor: 'date',
+        y_accessor: 'value'
+    });
 });
+
+
+
 
 
 
