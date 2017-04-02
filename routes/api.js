@@ -39,13 +39,23 @@ router.post('/battery/new', function(req, res, next) {
 /**
  * This mapping allows to search for events given a zip code.
  */
-router.get('/events/:zip', function(req, res, next) {
-    Event.find({'zip' : req.params.zip}, function(error, events){
-        if(!events){
-            res.send({message : "No events found for this zip-code."});
+router.get('/battery/:days/', function(req, res, next) {
+
+    var dayInMs = 86400000;
+    var currDate = new Date();
+
+    currDate = currDate.getTime();
+    var startDate = currDate - (dayInMs * req.params.days);
+
+    startDate = new Date(startDate);
+    console.log(startDate);
+
+    Battery.find({"timeStamp" :  {$gt : startDate}}, function(error, batteries){
+        if(!batteries){
+            res.send({message : "No battery entries for the given date!"});
         }
-        res.send(events);
-    });
+        res.send(batteries);
+    }).limit(5);
 });
 
 /**
@@ -53,7 +63,7 @@ router.get('/events/:zip', function(req, res, next) {
  */
 router.get('/events/:id', function(req, res, next) {
 
-    Event.find({'_id' : req.params.id}, function(error, events){
+    Battery.find({'_id' : req.params.id}, function(error, events){
         if(!events){
             res.send({message: "Event not found"});
         }
