@@ -5,82 +5,6 @@ var body = $('body');
 
 
 
-/*Sign up POST*/
-$(function() {
-
-    $("#contactForm input").jqBootstrapValidation({
-        preventSubmit: true,
-        submitError: function($form, event, errors) {
-            // additional error messages or events
-        },
-        submitSuccess: function($form, event) {
-            event.preventDefault(); // prevent default submit behaviour
-            // get values from FORM
-            var email = $("input#email").val();
-            var firstName = $("input#firstName").val();
-            var lastName = $("input#lastName").val();
-            var password = $("input#password").val();
-            var confirmPassword = $("input#confirmPassword").val();
-
-            // For Success/Failure Message
-            // Check for white space in name for Success/Fail message
-            if (firstName.indexOf(' ') >= 0) {
-                firstName = name.split(' ').slice(0, -1).join(' ');
-            }
-            $.ajax({
-                url: "users/signup",
-                type: "POST",
-                data: {
-                    email: email,
-                    firstName: firstName,
-                    lastName: lastName,
-                    password: password,
-                    confirmPassword: confirmPassword
-                },
-                cache: false,
-                success: function() {
-                    // Success message
-                    $('#success').html("<div class='alert alert-success'>");
-                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                        .append("</button>");
-                    $('#success > .alert-success')
-                        .append("<strong>Your message has been sent. </strong>");
-                    $('#success > .alert-success')
-                        .append('</div>');
-
-                    //clear all fields
-                    $('#contactForm').trigger("reset");
-                },
-                error: function() {
-                    // Fail message
-                    $('#success').html("<div class='alert alert-danger'>");
-                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                        .append("</button>");
-                    $('#success > .alert-danger').append($("<strong>").text("Sorry " + firstName + ", it seems that my mail server is not responding. Please try again later!"));
-                    $('#success > .alert-danger').append('</div>');
-                    //clear all fields
-                    $('#contactForm').trigger("reset");
-                },
-            });
-        },
-        filter: function() {
-            return $(this).is(":visible");
-        },
-    });
-
-    $("a[data-toggle=\"tab\"]").click(function(e) {
-        e.preventDefault();
-        $(this).tab("show");
-    });
-});
-
-
-/*When clicking on Full hide fail/success boxes */
-$('#name').focus(function() {
-    $('#success').html('');
-});
-
-
 
 
 
@@ -111,7 +35,7 @@ $('#name').focus(function() {
 
 /* Main*/
 /*Load page */
-loadPage();
+// loadPage();
 
 /**********************************************************************************************************************/
 
@@ -224,4 +148,46 @@ body.on('click','.active-thumb', function () {
 
     });
 });
+
+
+
+
+
+
+
+/*TODO add siugn up form */
+
+/*
+ *
+ <!--Search Form-->
+ <section class="row">
+ <form id="contactForm" novalidate>
+ <div class="form-group">
+ <input type="email" class="form-control" id="email" placeholder="Email">
+ </div>
+ <div class="form-group">
+ <input type="text" class="form-control" id="firstName" placeholder="First name">
+ </div>
+ <div class="form-group">
+ <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+ </div>
+ <div class="form-group">
+ <input type="password" class="form-control" id="password" placeholder="Password">
+ </div>
+ <div class="form-group">
+ <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+ </div>
+ <button type="submit" class="btn btn-default">Submit</button>
+
+ </form>
+ <div id="success"></div>
+
+
+
+ </section>
+ <!--END Search Form-->
+
+
+
+ */
 
