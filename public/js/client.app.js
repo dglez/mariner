@@ -4,36 +4,21 @@
 var body = $('body');
 
 
-
-
-
-
-/**********************************************************************************************************************/
-
-
-
-
-
-
-
-
-var api_key = 'api/sensor/battery/\.005';
-$.get(api_key, function (api_res) {
+var api_default = 'api/sensor/battery/\.05';
+$.get(api_default, function (api_res) {
 
     var data = new Array();
     for (i = 0; i <  api_res.length; i++){
-        console.log(api_res[i].timeStamp);
+
         data.push({'date': new Date(api_res[i].timeStamp), 'value':parseInt(api_res[i].reading)});
 
     }
-    console.log(data);
-
 
     MG.data_graphic({
         title: "",
         description: "This graphic shows a time-series of downloads.",
         data: data,
-        width: 800,
+        width: 700,
         height: 550,
         target: '.graph',
         x_accessor: 'date',
@@ -41,6 +26,47 @@ $.get(api_key, function (api_res) {
     });
 });
 
+
+/**********************************************************************************************************************/
+
+
+
+$(".menu-item").on('click',function (e) {
+    e.preventDefault();
+
+    var sensor = $(this);
+
+    var api_key = 'api/sensor/' + sensor.attr('data-api') +"/" + sensor.attr('data-time');
+
+    $('.title').html(sensor.attr('data-api'));
+    $('.sub-title').html(sensor.attr('data-unit') + " vs time");
+
+
+
+    $.get(api_key, function (api_res) {
+
+        var data = new Array();
+        for (i = 0; i <  api_res.length; i++){
+
+            data.push({'date': new Date(api_res[i].timeStamp), 'value':parseInt(api_res[i].reading)});
+
+        }
+
+        MG.data_graphic({
+            title: "",
+            description: "This graphic shows a time-series of downloads.",
+            data: data,
+            width: 700,
+            height: 550,
+            target: '.graph',
+            x_accessor: 'date',
+            y_accessor: 'value'
+        });
+    });
+
+
+
+});
 
 
 

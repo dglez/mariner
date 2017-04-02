@@ -72,11 +72,13 @@ a {
 
 .title {
   font-weight: 900;
-  font-size: 2em; }
+  font-size: 2em;
+  text-transform: uppercase; }
 
 .sub-title {
   font-weight: 400;
-  font-size: 1.2em; }
+  font-size: 1.2em;
+  text-transform: capitalize; }
 
 path.mg-main-area {
   fill: #fefd32;
@@ -84,5 +86,8 @@ path.mg-main-area {
 
 .mg-line1-color {
   stroke: #fefd32; }
+
+.menu-item {
+  cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */
