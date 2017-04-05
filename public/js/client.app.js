@@ -4,7 +4,7 @@
 var body = $('body');
 
 
-var api_default = 'api/sensor/battery/\.05';
+var api_default = 'api/sensor/battery/7';
 $.get(api_default, function (api_res) {
 
     var data = new Array();
