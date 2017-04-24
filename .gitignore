@@ -124,4 +124,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#Ignoring log file and python compiled code
+*.log
+*.pyc
+
 # End of https://www.gitignore.io/api/linux,macos,windows,webstorm
